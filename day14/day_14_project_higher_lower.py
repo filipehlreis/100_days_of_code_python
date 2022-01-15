@@ -13,9 +13,9 @@ def pick_a_data(data, history):
     return choosed
 
 
-def check_answer(history):
+def check_answer(history, score):
     awnser_guess = input(
-        "Who has more followers? Type 'A' or 'B': ").lower()
+        "\nWho has more followers? Type 'A' or 'B': ").lower()
 
     if history[-2]['follower_count'] > history[-1]['follower_count']:
         awnser_correct = 'a'
@@ -23,37 +23,49 @@ def check_answer(history):
         awnser_correct = 'b'
 
     if awnser_correct != awnser_guess:
-        print('You lost.')
+        clear()
+        print(logo)
+        print(f"\nSorry, that's wrong. Final score: {score}")
         return False
     return True
+
+
+def print_compare(history):
+    print(f"Compare A: "
+          f"{history[-2]['name']}, "
+          f"a {history[-2]['description']}, "
+          f"from {history[-2]['country']}.")
+    print(vs)
+    print(f"Against B: "
+          f"{history[-1]['name']}, "
+          f"a {history[-1]['description']}, "
+          f"from {history[-1]['country']}.")
+    return
 
 
 def game():
     history = []
     should_continue = True
+    score = 0
+    max_score = len(data)
+    history.append(pick_a_data(data, history))
 
-    while should_continue:
+    while should_continue and (score < max_score):
         clear()
         print(logo)
 
         history.append(pick_a_data(data, history))
-        history.append(pick_a_data(data, history))
 
-        print(f"Compare A: "
-              f"{history[-2]['name']}, "
-              f"a {history[-2]['description']}, "
-              f"from {history[-2]['country']}.")
-        print(vs)
-        print(f"Against B: "
-              f"{history[-1]['name']}, "
-              f"a {history[-1]['description']}, "
-              f"from {history[-1]['country']}.")
+        if score > 0:
+            print(f"\nYou're right! Your current score is: {score}\n")
+        else:
+            print('\n\n')
 
-        a = history[-2]['follower_count']
-        b = history[-1]['follower_count']
-        print(f"{a} > {b}")
+        print_compare(history)
 
-        should_continue = check_answer(history)
+        should_continue = check_answer(history, score)
+        score += 1
+
     return
 
 
