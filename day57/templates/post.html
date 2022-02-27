@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Post {{ id_post }} | Filipe's Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="top">
+        <div class="title">
+            <a href="{{ url_for('home') }}" style="text-decoration:none;">
+                <h1>Filipe's Blog</h1>
+            </a>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="card">
+            {% for blog_post in posts %}
+                {% if blog_post["id"] == id_post %}
+                    <h2>{{ blog_post["title"] }}</h2>
+                    <h3>{{ blog_post["subtitle"] }}</h3>
+                    <p>{{ blog_post["body"] }}</p>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <p>Made with ♥️ in London.</p>
+</footer>
+</html>
