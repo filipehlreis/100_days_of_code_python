@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+    {{super()}}
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Add A New Cafe{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Add a new cafe into the database</h1>
+
+      <form class="form form-horizontal" method="post" role="form" novalidate>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens="only") }}
+      
+        {{ wtf.form_field(form.cafe) }}
+        {{ wtf.form_field(form.url) }}
+        {{ wtf.form_field(form.open_time) }}
+        {{ wtf.form_field(form.closing_time) }}
+        {{ wtf.form_field(form.coffee_rating) }}
+        {{ wtf.form_field(form.wifi_rating) }}
+        {{ wtf.form_field(form.power_rating) }}
+        {{ wtf.form_field(form.submit) }}
+      </form>
+      
+
+      <p class="space-above"><a href="{{ url_for('cafes') }}">See all cafes</a></p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
