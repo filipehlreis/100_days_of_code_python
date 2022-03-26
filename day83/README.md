@@ -7,6 +7,7 @@ Course 100 Days of Code - The Complete Python Pro Bootcamp - Dr Angela Yu
 This is a place to journal your experience of completing this project. This will help you figure out how to improve as a developer.
 Write down how you approached the project. What was hard, what was easy. How might you improve for the next project? What was your biggest learning from today? What would you do differently if you were to tackle this project again?
 
+GitHub: https://github.com/filipehlreis/100_days_of_code_python/tree/main/day83
 
 1. Approach:
 	1. This exercise is to be done in 90 minutes.
