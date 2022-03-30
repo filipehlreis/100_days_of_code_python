@@ -1,0 +1,38 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+    {{super()}}
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Add A New Task{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Add a new task into the todo list</h1>
+
+      <form class="form form-horizontal" method="post" role="form" novalidate>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens="only") }}
+        <input hidden="hidden" name="id" value="{{form.id}}">
+        
+        {{ wtf.form_field(form.task) }}
+        {{ wtf.form_field(form.status) }}
+        {{ wtf.form_field(form.submit) }}
+      </form>
+      
+
+      <p class="space-above"><a href="{{ url_for('get_all_todolist') }}">See all tasks</a></p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+

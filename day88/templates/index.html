@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    {{super()}}
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Coffee and Wifi{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+  <h1 class="display-4">✅ Todo List ❌</h1>
+  <p class="lead">Want to organize your tasks and don't know how?</p>
+  <hr class="my-4">
+  <p>You've found the right place! Checkout this awesone Todo List!.</p>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('get_all_todolist') }}" role="button">Show Me!</a>
+</div>
+    </div>
+
+{% endblock %}

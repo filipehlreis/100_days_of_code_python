@@ -1,0 +1,71 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block styles %}
+{{super()}}
+
+<link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      
+      <h1>ToDo List</h1>
+      <h3><a href="{{ url_for('add_todo_task') }}">Add a new cafe</a></h3>
+
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit?</th>
+            <th scope="col">Delete?</th>
+
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for task in tasks[0:] %}
+            {% if task.status == "Concluido" %}
+              <tr style="text-decoration: line-through;">
+                <th scope="row">{{ task.task }}</th>
+
+                <td>{{task.status}}</td>
+  
+                <td><a href="{{ url_for('edit_task', task_id=task.id ) }}">Edit</a></td>
+                <td><a href="{{ url_for('delete_task', task_id=task.id ) }}">Delete?</a></td>
+              </tr>
+              {% else %}
+              <tr>
+                <th scope="row">{{ task.task }}</th>
+
+                <td>{{task.status}}</td>
+  
+                <td><a href="{{ url_for('edit_task', task_id=task.id ) }}">Edit</a></td>
+                <td><a href="{{ url_for('delete_task', task_id=task.id ) }}">Delete?</a></td>
+              </tr>
+
+              {% endif %}
+              
+          {% endfor %}
+
+
+
+        </tbody>
+      </table>
+
+      <p><a href="{{ url_for('home') }}">Return to index page</a></p>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
