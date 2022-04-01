@@ -1,2 +1,0 @@
-API_GOOGLE_CLOUD_TEXT_TO_SPEECH = "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"
-# API_GOOGLE_CLOUD_TEXT_TO_SPEECH = "235438205509-aodvtfrtkbpupt1v21bve3u2rovojf7h.apps.googleusercontent.com"
