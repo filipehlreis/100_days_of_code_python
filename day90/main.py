@@ -18,7 +18,7 @@ with fitz.open(pdf_dir) as doc:
             nome_arquivo = part.split('.')[0]
 
     text = ""
-    num_pagina = -1
+    num_pagina = 0
     for page in doc:
         num_pagina += 1
         text = page.get_text()
@@ -50,7 +50,7 @@ with fitz.open(pdf_dir) as doc:
         texto_string = texto['audioContent']
 
         assets_dir = "day90\\assets"
-        file_name = f"{nome_arquivo}\\{nome_arquivo}_{num_pagina}.mp3"
+        file_name = f"{nome_arquivo}_{num_pagina}.mp3"
         mp3_dir = f"{assets_dir}\\{file_name}"
 
         with open(mp3_dir, mode='wb') as file:
