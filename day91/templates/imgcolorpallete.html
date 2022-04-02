@@ -1,0 +1,51 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block styles %}
+{{super()}}
+
+<link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Image Colour Palette Generator{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      
+      <h1>Image Colour Palette Generator</h1>
+      <br>
+      
+      
+      <div align="center" background>
+        <img src="{{url_for('static', filename=img_url)}}" alt="" style="max-height: 550px; max-width: 100%;">
+      </div>
+      <h3 align='center'><a href="{{ url_for('get_image') }}"> -- Change the image -- </a></h3>
+
+
+
+
+      <div class="row" style="margin: 1em;">
+
+
+        {% for color in img_pallete %}
+          <div class="col-sm-12" style="background-color:{{color}}; color:#000">
+            {{color}}
+          </div>
+        {% endfor %}
+        
+      </div>
+
+
+
+      <p><a href="{{ url_for('home') }}">Return to index page</a></p>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

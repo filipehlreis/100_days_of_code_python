@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    {{super()}}
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}Image Colour Palette Generator{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+  <h1 class="display-4">✅ Image Colour Palette Generator</h1>
+  <p class="lead">Want to get a color pallete from your images?</p>
+  <hr class="my-4">
+  <p>You've found the right place! Checkout this awesone Image Colour Palette Generator!</p>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('get_imgcolorpallete') }}" role="button">Show Me!</a>
+</div>
+    </div>
+
+{% endblock %}
