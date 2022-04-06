@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    {{super()}}
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}✅ Dictionary ✅{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+  <h1 class="display-4">✅ Dictionary ✅</h1>
+  <p class="lead">Want to search the mean of a word?</p>
+  <hr class="my-4">
+  <p>You've found the right place! Checkout this awesone Dictionary!</p>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('get_dictionary_word') }}" role="button">Show Me!</a>
+</div>
+    </div>
+
+{% endblock %}

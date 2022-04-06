@@ -1,0 +1,58 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block styles %}
+{{super()}}
+
+<link rel="stylesheet" href="/static/css/styles.css">
+{% endblock %}
+
+{% block title %}✅ Dictionary{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      
+      <h1 align="center">✅ Dictionary ✅</h1>
+      <br>
+      
+      
+      <h3 align='center'><a href="{{ url_for('get_word') }}"> -- Search another word -- </a></h3>
+      <hr>
+      <h4>Word searched: <span style="font-weight: bold; color:#FFC105">"{{word_mean['word']}}"</span></h4>
+      <hr>
+      {% for word in word_mean['definitions'] %}
+        <div align="center" background>
+          {% if word['image_url'] %}
+            <img src="{{word['image_url']}}" alt="" style="max-height: 550px; max-width: 100%;">        
+          {% endif %}
+        </div>
+        <div>
+          <p><span style="font-weight: bold; color:#FFC105">Type: </span>{{word['type']}}</p>
+          <p ><span style="font-weight: bold; color:#FFC105">Definition:</span> {{word['definition']}}</p>
+        </div>
+        <hr>
+      {% endfor %}
+        
+
+
+      <div class="row" style="margin: 1em;">
+
+
+
+        
+      </div>
+
+
+
+      <p><a href="{{ url_for('home') }}">Return to index page</a></p>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
