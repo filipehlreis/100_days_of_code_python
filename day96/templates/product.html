@@ -1,0 +1,83 @@
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{product.img_url}}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{product.title}}</h1>
+          <h2 class="subheading">{{product.subtitle}}</h2>
+          <span class="meta">Posted by
+
+
+            {{product.author.name}}
+            on {{product.date}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{ product.body|safe }}
+        <hr>
+
+
+        <!--           If user id is 1 then they can see the Edit Post button -->
+        {% if current_user.id == 1 %}
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{url_for('edit_product', product_id=product.id)}}">Edit Product</a>
+        </div>
+        {% endif %}
+
+
+
+
+        <!--Comments Area -->
+
+        <!-- #Load the CKEditor -->
+        {{ ckeditor.load() }}
+        <!-- #Configure it with the name of the form field from CommentForm -->
+        {{ ckeditor.config(name='comment_text') }}
+        <!-- #Create the wtf quickform from CommentForm -->
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+
+
+
+        <div class="col-lg-8 col-md-10 mx-auto comment">
+          {% for comment in product.comments: %}
+          <ul class="commentList">
+              <li>
+                  <div class="commenterImage">
+                    <img src="{{ comment.comment_author.email | gravatar }}"/>
+                  </div>
+                  <div class="commentText">
+                      {{comment.text|safe}}
+                      <span class="date sub-text">{{comment.comment_author.name}}</span>
+
+                  </div>
+              </li>
+          </ul>
+          {% endfor %}
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr>
+{% include "footer.html" %}
+{% endblock %}

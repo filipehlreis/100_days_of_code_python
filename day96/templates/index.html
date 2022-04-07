@@ -1,0 +1,62 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead"
+  style="background-image: url('https://images.unsplash.com/photo-1470092306007-055b6797ca72?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Filipe's Store</h1>
+          <span class="subheading">A collection of random stuff.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      
+      
+      {% for product in all_products %}
+      <div class="post-preview">
+        <a href="{{ url_for('show_product', product_id=product.id) }}">
+          <h2 class="post-title">
+            {{product.title}}
+          </h2>
+          <h3 class="post-subtitle">
+            {{product.subtitle}}
+          </h3>
+        </a>
+        <p class="post-meta">Posted by
+          {{product.author.name}}
+          on {{product.date}}
+
+
+          <!--        If user id is 1 then they can see the delete button -->
+          {% if current_user.id == 1: %}
+            <a href="{{url_for('delete_product', product_id=product.id) }}">✘</a>
+          {% endif %}
+        </p>
+      </div>
+      <hr>
+      {% endfor %}
+
+
+      <!-- New Post -->
+      <!--    If user id is 1 then they can see the Create New Post button -->
+      {% if current_user.id == 1: %}
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{url_for('add_new_product')}}">Create New Product</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<hr>
+
+{% include "footer.html" %}
