@@ -6,7 +6,7 @@ from flask_ckeditor import CKEditorField
 # WTForm
 
 
-class CreatePostForm(FlaskForm):
+class CreateProductForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     subtitle = StringField("Brief Subtitle", validators=[DataRequired()])
     img_url = StringField("Image URL", validators=[DataRequired(), URL()])

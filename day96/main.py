@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+from forms import CreateProductForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 from flask import abort
@@ -91,10 +91,12 @@ class Comment(db.Model):
 # Create all the tables in the database
 # db.create_all()
 
-carrinho = [1, 2]
-
+carrinho = []
+soma_carrinho = 0
 
 # Create admin-only decorator
+
+
 def admin_only(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -111,11 +113,24 @@ def get_all_products():
     products = StoreProduct.query.all()
     return render_template("index.html", all_products=products, current_user=current_user, carrinho=carrinho)
 
+@app.route('/empty_cart')
+def empty_cart():
+    global carrinho
+    carrinho = []
+    return redirect(url_for("get_all_products"))
+
 
 @app.route('/carrinho')
 def get_carrinho():
-    products = StoreProduct.query.all()
-    return render_template("carrinho.html", all_products=products, current_user=current_user, carrinho=carrinho)
+    soma_carrinho = 0
+
+    for item in carrinho:
+        soma_carrinho += float(item['product'].price) * item['quantity']
+
+    soma_carrinho = round(soma_carrinho, 2)
+    soma_carrinho = f"{soma_carrinho:.2f}"
+
+    return render_template("carrinho.html", soma=soma_carrinho, current_user=current_user, carrinho=carrinho)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -218,11 +233,24 @@ def contact():
     return render_template("contact.html", current_user=current_user, carrinho=carrinho)
 
 
+@app.route("/checkout")
+def checkout():
+    soma_carrinho = 0
+
+    for item in carrinho:
+        soma_carrinho += float(item['product'].price) * item['quantity']
+
+    soma_carrinho = round(soma_carrinho, 2)
+    soma_carrinho = f"{soma_carrinho:.2f}"
+
+    return render_template("checkout.html", soma=soma_carrinho, current_user=current_user, carrinho=carrinho)
+
+
 @app.route("/new-product", methods=["GET", "POST"])
 # Mark with decorator
 @admin_only
 def add_new_product():
-    form = CreatePostForm()
+    form = CreateProductForm()
     if form.validate_on_submit():
         price_product = float(form.price.data)
         price = f"{price_product:.2f}"
@@ -245,7 +273,7 @@ def add_new_product():
 @admin_only
 def edit_product(product_id):
     product = StoreProduct.query.get(product_id)
-    edit_form = CreatePostForm(
+    edit_form = CreateProductForm(
         title=product.title,
         subtitle=product.subtitle,
         img_url=product.img_url,
@@ -282,8 +310,43 @@ def delete_product(product_id):
 @admin_only
 def delete_product_from_cart(product_id):
     product_to_delete = StoreProduct.query.get(product_id)
-    db.session.delete(product_to_delete)
-    db.session.commit()
+
+    for produto in carrinho:
+        if product_to_delete.id == produto['product'].id:
+            carrinho.remove(produto)
+            print(carrinho)
+
+            return redirect(url_for('get_carrinho'))
+
+    print(carrinho)
+    return redirect(url_for('get_carrinho'))
+
+
+@app.route("/add_to_card/<int:product_id>")
+@admin_only
+def add_product_to_card(product_id):
+    product_to_add = StoreProduct.query.get(product_id)
+
+    for produto in carrinho:
+        if product_to_add.id == produto['product'].id:
+            produto['quantity'] += 1
+            total_price = float(product_to_add.price) * produto['quantity']
+            total_price = round(total_price, 2)
+            produto['total_price'] = total_price
+            print(produto['quantity'])
+            print(carrinho)
+            return redirect(url_for('get_all_products'))
+
+    cart = {
+        'product': product_to_add,
+        'quantity': 1,
+        'total_price': product_to_add.price,
+    }
+
+    carrinho.append(cart)
+
+    print(carrinho)
+
     return redirect(url_for('get_all_products'))
 
 

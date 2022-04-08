@@ -2,7 +2,7 @@
 
 <!-- Page Header -->
 <header class="masthead"
-  style="background-image: url('https://images.unsplash.com/photo-1470092306007-055b6797ca72?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80')">
+  style="background-image: url('https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=668&q=80')">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -20,18 +20,25 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-
-      {% for product in all_products %}
+      {% for product in carrinho %}
       <div class="post-preview">
-        <a href="{{ url_for('show_product', product_id=product.id) }}">
+        <a href="{{ url_for('show_product', product_id=product['product'].id) }}">
           <h2 class="post-title">
-            {{product.title}}
+            {{product['product'].title}}
           </h2>
+          <h5 class="post-subtitle">
+            <span>Unit price: U$</span>
+            {{product['product'].price}}
+          </h5>
+          <h5 class="post-subtitle">
+            <span>Quantity: </span>
+            {{product['quantity']}}
+          </h5>
           <h3 class="post-subtitle">
-            <span>Price: U$</span>
-            {{product.price}}
+            <span>Total price: U$</span>
+            {{product['product'].price|float * (product['quantity'])}}
           </h3>
-          <a href="{{url_for('delete_product_from_cart', product_id=product.id) }}" class="post-meta"> Remove from Cart ✘</a>
+          <a href="{{url_for('delete_product_from_cart', product_id=product['product'].id) }}" class="post-meta"> Remove from Cart ✘</a>
         </a>
 
 
@@ -39,15 +46,19 @@
       </div>
       <hr>
       {% endfor %}
-
-
-      <!-- New Post -->
-      <!--    If user id is 1 then they can see the Create New Post button -->
-      {% if current_user.id == 1: %}
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{url_for('add_new_product')}}">Create New Product</a>
-        </div>
+      {% if carrinho %}
+      <h2 align = "center">Total Cart: U$ {{soma}}</h2>
+      <br>
+      <a href="{{ url_for('checkout') }}">
+        <h1 class="post-title" align = "center">
+          BUY!
+        </h1>
+      {% else %}
+      <h2 class="post-title">
+        Carrinho Vazio.
+      </h2>
       {% endif %}
+
     </div>
   </div>
 </div>

@@ -1,0 +1,52 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead"
+  style="background-image: url('https://images.unsplash.com/photo-1586864030218-6885c4d16684?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=668&q=80')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Checkout</h1>
+          <span class="subheading">A collection of awesome stuff to buy.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      
+      <div class="post-preview">
+        <a href="{{url_for('empty_cart')}}">
+          <h2 class="post-title">
+            Thank you!
+          </h1>
+          <h5 class="post-subtitle">
+            <span>An email will be sent to you shortly.</span>
+          </h5>
+          <h5 class="post-subtitle">
+            <span>A real payment will be implemented soon.</span>
+          </h5>
+          <br>
+        </a>
+      </div>
+    
+      {% if carrinho %}
+      <h6>Total Cart: U$ {{soma}}</h6>
+      {% else %}
+      <h2 class="post-title">
+        Carrinho Vazio.
+      </h2>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+<hr>
+
+{% include "footer.html" %}
