@@ -1,0 +1,10 @@
+from iso3166 import countries
+
+print(countries)
+
+x = 'USA'
+
+print(lambda y : countries.get(x))
+
+
+
