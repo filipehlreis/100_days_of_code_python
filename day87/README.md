@@ -33,4 +33,3 @@ GitHub: https://github.com/filipehlreis/100_days_of_code_python/tree/main/day87
     1. First of all, I'll revise previous code from other projects.
     2. I'll divide the main task in as many as possible of small tasks.
     3. To do one macro page each time.
-    4. I also need to practice more how to work with Turtle.
